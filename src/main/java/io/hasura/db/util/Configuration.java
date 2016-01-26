@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Configuration {
     private String hasuraDBUrl;
+    private String dbPrefix;
     private String packageName;
     private String dir;
     private String userName;
@@ -29,6 +30,10 @@ public class Configuration {
         return this.hasuraDBUrl;
     }
 
+    public String getDBPrefix() {
+        return this.dbPrefix;
+    }
+
     public void setPackageName(String packageName) {
         this.packageName = packageName;
     }
@@ -47,5 +52,9 @@ public class Configuration {
 
     public void setDBUrl(String dbUrl) {
         this.hasuraDBUrl = dbUrl;
+    }
+
+    public void setDBPrefix(String dbPrefix) {
+        this.dbPrefix = dbPrefix;
     }
 }

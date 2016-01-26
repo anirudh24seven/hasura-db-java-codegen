@@ -11,11 +11,12 @@ public class TestGeneration {
     public void run() throws IOException, AuthException {
 
         Configuration cfg = new Configuration();
-        cfg.setDBUrl("http://104.155.219.208");
-        cfg.setPackageName("in.findakadai.db");
+        cfg.setDBUrl(System.getenv("url"));
+        cfg.setPackageName(System.getenv("package"));
         cfg.setDir("ws");
         cfg.setUserName(System.getenv("username"));
         cfg.setPassword(System.getenv("password"));
+        cfg.setDBPrefix(System.getenv("dbprefix"));
         GenerationUtil.generate(cfg);
     }
 }

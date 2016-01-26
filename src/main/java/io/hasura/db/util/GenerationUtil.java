@@ -309,12 +309,12 @@ public class GenerationUtil {
         writer.close();
     }
 
-    public static DBInfo fetchDBInfo(String url, String userName, String password) throws IOException, AuthException {
+    public static DBInfo fetchDBInfo(String url, String dbPrefix, String userName, String password) throws IOException, AuthException {
         AuthService authService = new AuthService(url);
         authService.login(userName, password, null).execute();
         OkHttpClient client = authService.getClient();
         Request request = new Request.Builder()
-            .url(url + "/db/table")
+            .url(url + dbPrefix + "/table")
             .get()
             .build();
         Response response = client.newCall(request).execute();
@@ -348,7 +348,7 @@ public class GenerationUtil {
     }
 
     public static void generate(Configuration cfg) throws IOException, AuthException {
-        DBInfo dbInfo = fetchDBInfo(cfg.getDBUrl(), cfg.getUserName(), cfg.getPassword());
+        DBInfo dbInfo = fetchDBInfo(cfg.getDBUrl(), cfg.getDBPrefix(), cfg.getUserName(), cfg.getPassword());
 
         /* Create dir/tables, dir/tables/records directories */
         File tablesDir = new File(cfg.getDir(), "tables");
