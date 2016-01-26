@@ -2,6 +2,8 @@ package io.hasura.db.util;
 
 import java.util.Map.Entry;
 
+import io.hasura.auth.*;
+
 import com.google.gson.*;
 import com.google.gson.reflect.*;
 import java.lang.reflect.Type;
@@ -307,11 +309,12 @@ public class GenerationUtil {
         writer.close();
     }
 
-    public static DBInfo fetchDBInfo(String url) throws IOException {
-        OkHttpClient client = new OkHttpClient();
+    public static DBInfo fetchDBInfo(String url, String userName, String password) throws IOException, AuthException {
+        AuthService authService = new AuthService(url);
+        authService.login(userName, password, null).execute();
+        OkHttpClient client = authService.getClient();
         Request request = new Request.Builder()
-            .url(url + "/api/1/table")
-            .header("X-Hasura-Role", "admin")
+            .url(url + "/db/table")
             .get()
             .build();
         Response response = client.newCall(request).execute();
@@ -344,8 +347,8 @@ public class GenerationUtil {
 
     }
 
-    public static void generate(Configuration cfg) throws IOException {
-        DBInfo dbInfo = fetchDBInfo(cfg.getDBUrl());
+    public static void generate(Configuration cfg) throws IOException, AuthException {
+        DBInfo dbInfo = fetchDBInfo(cfg.getDBUrl(), cfg.getUserName(), cfg.getPassword());
 
         /* Create dir/tables, dir/tables/records directories */
         File tablesDir = new File(cfg.getDir(), "tables");

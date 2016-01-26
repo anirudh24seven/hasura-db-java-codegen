@@ -6,15 +6,19 @@ public class Configuration {
     private String hasuraDBUrl;
     private String packageName;
     private String dir;
-
-    public Configuration(String hasuraDBUrl, String packageName, String dir) {
-        this.hasuraDBUrl = hasuraDBUrl;
-        this.packageName = packageName;
-        this.dir = dir;
-    }
+    private String userName;
+    private String password;
 
     public String getPackageName() {
         return this.packageName;
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
     public String getDir() {
@@ -23,5 +27,25 @@ public class Configuration {
 
     public String getDBUrl() {
         return this.hasuraDBUrl;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setDir(String dir) {
+        this.dir = dir;
+    }
+
+    public void setDBUrl(String dbUrl) {
+        this.hasuraDBUrl = dbUrl;
     }
 }
