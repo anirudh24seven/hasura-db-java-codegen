@@ -1,29 +1,27 @@
 package io.hasura.db.util;
 
-import java.util.Map.Entry;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
-import io.hasura.auth.*;
-
-import com.google.gson.*;
-import com.google.gson.reflect.*;
-import java.lang.reflect.Type;
-
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.HashMap;
-
-import java.io.PrintWriter;
 import java.io.File;
 import java.io.IOException;
-import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import io.hasura.auth.AuthException;
+import io.hasura.auth.AuthService;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableSet;
 
@@ -320,7 +318,7 @@ public class GenerationUtil {
         Response response = client.newCall(request).execute();
         String respStr = response.body().string();
         Type tabInfoListType = new TypeToken<ArrayList<TableInfo>>() {}.getType();
-        return new DBInfo(gson.fromJson(respStr, tabInfoListType));
+        return new DBInfo((List<TableInfo>) gson.fromJson(respStr, tabInfoListType));
     }
 
     public static void generateTablesJava(String dir, String pkgName, List<String> tableNames) throws IOException {

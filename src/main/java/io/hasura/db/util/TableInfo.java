@@ -1,7 +1,8 @@
 package io.hasura.db.util;
 
-import java.util.HashMap;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.HashMap;
 
 public class TableInfo {
     @SerializedName("name")

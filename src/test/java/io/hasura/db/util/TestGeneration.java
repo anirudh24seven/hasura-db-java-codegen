@@ -1,8 +1,9 @@
 package io.hasura.db.util;
 
 import org.junit.Test;
-import java.util.List;
+
 import java.io.IOException;
+
 import io.hasura.auth.AuthException;
 
 public class TestGeneration {
